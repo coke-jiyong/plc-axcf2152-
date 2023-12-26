@@ -57,7 +57,7 @@ ExampleAuthenticationProvider::ExampleAuthenticationProvider(UmModuleEx& mod)
                     }
                 }
                 if (flag != 1) {
-                    log.Debug("ExampleAuthenticationProvider: HostID compare failed");
+                    log.Debug("ExampleAuthenticationProvider: HostID Comparison failed");
                     mod.licenseCheckFail();
                 }
             }
@@ -66,7 +66,7 @@ ExampleAuthenticationProvider::ExampleAuthenticationProvider(UmModuleEx& mod)
                     log.Debug("ExampleAuthenticationProvider: License Check SUCCESS");
                 }
                 else {
-                    log.Debug("ExampleAuthenticationProvider: HostID compare failed");
+                    log.Debug("ExampleAuthenticationProvider: HostID Comparison failed");
                     mod.licenseCheckFail();
                 }
             }
@@ -123,6 +123,7 @@ UmAuthenticationResult ExampleAuthenticationProvider::AuthenticateUser(const Str
                 for (int i = 0 ; i < v.size() ; i ++){
                     roles.push_back(v[i]);
                 }
+                vector<String>().swap(v);
                 sessionInfo.SetRoles(roles);
                 return UmAuthenticationResult::Success;
              }
