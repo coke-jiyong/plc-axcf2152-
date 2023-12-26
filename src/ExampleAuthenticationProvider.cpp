@@ -17,8 +17,8 @@ ExampleAuthenticationProvider::ExampleAuthenticationProvider(UmModuleEx& mod)
     : mod(mod)
 {
     using namespace jwt::params;
-    const std::string pub_key_path = "/opt/plcnext/test/public/test.key";
-    const std::string token_path = "/opt/plcnext/test/testLicense";
+    const std::string pub_key_path = "/opt/plcnext/AuthenticationProvider/doc/public/pub.key";
+    const std::string token_path = "/opt/plcnext/AuthenticationProvider/doc/license.txt";
     auto pub_key = read_from_file(pub_key_path);
     auto token = read_from_file(token_path); //license file
     jwt::jwt_object dec_obj;
@@ -123,12 +123,16 @@ UmAuthenticationResult ExampleAuthenticationProvider::AuthenticateUser(const Str
                 for (int i = 0 ; i < v.size() ; i ++){
                     roles.push_back(v[i]);
                 }
-                vector<String>().swap(v);
+                
                 sessionInfo.SetRoles(roles);
+
+                std::list<String>().swap(roles);
+                vector<String>().swap(v);
                 return UmAuthenticationResult::Success;
              }
              roles = {Role};
              sessionInfo.SetRoles(roles);            
+             std::list<String>().swap(roles);
              return UmAuthenticationResult::Success;
          }
          else
